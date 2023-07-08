@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="account_details")
+@Table(name="Cancellation")
 
 public class Cancellation 
 {
