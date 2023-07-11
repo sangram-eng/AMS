@@ -1,7 +1,5 @@
 package com.ams.entity;
 
-import java.util.Date;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,24 +10,17 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="Bill")
-
-
-public class Bill 
-{
+@Table(name="refund_details")
+public class RefundRegistration {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	  private Long id;
-	  
-	  @Column
-	  private String userName;
-	  @Column
-	  private BookTicket ticketId;
-	  @Column
-	  private String price;
-	  @Column
-	  private Date journeyDate;
-	  @Column
-	  private String journeyTime;
-
+	private Long id;
+	@Column
+	private Bill billId;
+	@Column
+	private PassengerRegistration passengerId;
+	@Column
+	private FlightDetails flightId;
+	@Column
+	private String reason;
 }

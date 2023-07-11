@@ -16,7 +16,7 @@ public class BookTicket
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
-	  private Long ticketid;
+	  private Long id;
 	  @Column
 	  private String source;
 	  @Column
