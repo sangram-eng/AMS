@@ -16,18 +16,16 @@ public class PassengerRegistration
  {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
-	private String username;
-	@Column
-	private String name;
+	private Long id;
+	private String userName;
 	@Column
 	private int age;
 	@Column
-	private Long DOB;
+	private Long dob;
 	@Column
 	private Long phoneNo;
 	@Column
-	private String Nationality;
+	private String nationality;
 	@Column
 	private String emailId;
 	@Column

@@ -32,8 +32,5 @@ public class BookTicket
 	  @Column
 	  private Long journeytime;
 	  @Column
-	  private String username;
-	  @Column
-	  private String name;
-
+	  private PassengerRegistration passengerId;
 }

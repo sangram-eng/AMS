@@ -15,13 +15,11 @@ public class FlightDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long id; 
     @Column
-	private String name;
+	private String name; 
 	@Column
-	private String flightName;    
-	@Column
-	private String flightCode;
+	private String flightCode; 
 	@Column
 	private String	flightZone;
 

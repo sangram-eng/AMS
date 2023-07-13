@@ -16,25 +16,19 @@ public class Cancellation
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	  private Long ticketid;
+	  private Long id;
 	  @Column
-	  private String source;
+	  private PassengerRegistration passengerId;
 	  @Column
-	  private String destination;
+	  private BookTicket ticketId;
 	  @Column
-	  private Long price;
+	  private FlightDetails flightId;
 	  @Column
-	  private String flightcode;
-	  @Column
-	  private String flightname;
+	  private Bill billId;
 	  @Column
 	  private Long journeydate;
 	  @Column
 	  private Long journeytime;
-	  @Column
-	  private String username;
-	  @Column
-	  private String name;
 	  @Column
 	  private String reason;
 }
