@@ -1,5 +1,7 @@
 package com.ams.entity;
 
+import java.util.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,19 +20,14 @@ public class BookTicket
 	
 	  private Long id;
 	  @Column
-	  private String source;
-	  @Column
-	  private String destination;
-	  @Column
-	  private Long price;
-	  @Column
-	  private String flightcode;
-	  @Column
-	  private String flightname;
-	  @Column
-	  private Long journeydate;
-	  @Column
-	  private Long journeytime;
-	  @Column
 	  private PassengerRegistration passengerId;
+	  @Column
+	  private String price;
+	  @Column
+	  private FlightDetails flightId;
+	  @Column
+	  private Date journeydate;
+	  @Column
+	  private String journeytime;
+	 
 }
