@@ -10,20 +10,21 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="PassengerRegistration")
+@Table(name="passenger")
 
 public class PassengerRegistration 
  {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column
 	private String userName;
 	@Column
-	private int age;
+	private String age;
 	@Column
-	private Long dob;
+	private String dob;
 	@Column
-	private Long phoneNo;
+	private String phoneNo;
 	@Column
 	private String nationality;
 	@Column
