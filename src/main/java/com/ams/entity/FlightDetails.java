@@ -16,7 +16,7 @@ import lombok.Data;
 public class FlightDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long Id;
+	private Long id;
 	@Column
 	private String name;
 	@Column
