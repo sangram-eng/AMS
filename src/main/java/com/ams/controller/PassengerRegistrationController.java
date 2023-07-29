@@ -16,7 +16,7 @@ import com.ams.entity.PassengerRegistration;
 import com.ams.service.PassengerRegistrationService;
 
 @RestController
-@RequestMapping("/passengerRegistration")
+@RequestMapping("/passenger")
 public class PassengerRegistrationController {
 	
 	@Autowired
