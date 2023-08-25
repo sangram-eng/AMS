@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,24 +15,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ams.bean.Billinfo;
-import com.ams.bean.PassengerRegistrationinfo;
 import com.ams.entity.Bill;
-import com.ams.entity.PassengerRegistration;
 import com.ams.service.BillService;
-import com.ams.service.PassengerRegistrationService;
-
 @RestController
-@RequestMapping("/bill")
+@RequestMapping("/api/v1/bill")
 public class BillController {
 	
 	@Autowired
 	BillService billService;
 	
-
-	
-	@RequestMapping(value="/register" , method=RequestMethod.POST) 
-	Bill register(@RequestBody Billinfo billinfo) {
-	  return billService.register(billinfo);		
+	@PostMapping("/register")
+	 public ResponseEntity<?> addBill(@RequestBody Billinfo bill){
+		Bill billregister = billService.register(bill);
+		return new ResponseEntity<Bill>(billregister, HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value="/update" , method=RequestMethod.PUT) 
@@ -39,8 +37,6 @@ public class BillController {
 	}
 	
 	@GetMapping("/getAll")
-	
-	
 	public List<Bill> getAll(){
 		
 		return billService.getAll();

@@ -22,6 +22,15 @@ PassengerRegistrationRepository PassengerRegistrationRepository;
 	public PassengerRegistration update(PassengerRegistration passengerregistration) {
 		return PassengerRegistrationRepository.save(passengerregistration);
 	}
+	    public String checkRegistration(String newuserName) {
+		PassengerRegistration existingUser = PassengerRegistrationRepository.findByUserName(newuserName);
+
+        if (existingUser != null) {
+            return "Username already registered!";
+        } else {
+            return "Registration successful!";
+        }
+    }
 	
 	public List<PassengerRegistration> getAll() {
 		return PassengerRegistrationRepository.findAll();

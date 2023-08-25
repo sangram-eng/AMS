@@ -26,6 +26,7 @@ public class PassengerRegistration
 	@Column
 	private String phoneNo;
 	@Column
+	
 	private String nationality;
 	@Column
 	private String emailId;
