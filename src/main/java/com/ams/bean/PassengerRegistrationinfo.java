@@ -1,5 +1,6 @@
 package com.ams.bean;
 
+import com.ams.entity.CovidVaccineDetails;
 import com.ams.entity.PassengerRegistration;
 import lombok.Data;
 
@@ -15,6 +16,7 @@ public class PassengerRegistrationinfo {
 	private String gender;
 	private String passportNo;
 	private String address;
+	private String vaccineId;
 	
 	public PassengerRegistration convertToEntity() {
 		
@@ -30,6 +32,9 @@ public class PassengerRegistrationinfo {
 			passenger.setGender(gender);
 			passenger.setPassportNo(passportNo);
 			passenger.setAddress(address);
+			
+			if (vaccineId!=null && vaccineId!="") {CovidVaccineDetails covid= new CovidVaccineDetails();
+		      covid.setId(Long.valueOf(vaccineId)); passenger.setVaccineId(covid); }
 			
 			return passenger;
 	   }
