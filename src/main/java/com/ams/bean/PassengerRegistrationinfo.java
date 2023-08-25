@@ -1,6 +1,5 @@
 package com.ams.bean;
 
-import com.ams.entity.CovidVaccineDetails;
 import com.ams.entity.PassengerRegistration;
 import lombok.Data;
 
@@ -22,7 +21,7 @@ public class PassengerRegistrationinfo {
 		
 		PassengerRegistration passenger= new PassengerRegistration();
 			if(id!=null  && id!="0")			
-				passenger.setId(Long.valueOf(id));
+		    passenger.setId(Long.valueOf(id));
 			passenger.setUserName(userName);
 			passenger.setAge(age);
 			passenger.setDob(dob);
@@ -32,10 +31,10 @@ public class PassengerRegistrationinfo {
 			passenger.setGender(gender);
 			passenger.setPassportNo(passportNo);
 			passenger.setAddress(address);
-			
-			if (vaccineId!=null && vaccineId!="") {CovidVaccineDetails covid= new CovidVaccineDetails();
-		      covid.setId(Long.valueOf(vaccineId)); passenger.setVaccineId(covid); }
-			
+			passenger.setVaccineId(vaccineId);
 			return passenger;
-	   }
+			
+			
 	}
+	
+}

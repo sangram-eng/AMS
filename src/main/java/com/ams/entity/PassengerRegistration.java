@@ -38,9 +38,8 @@ public class PassengerRegistration
 	private String passportNo;
 	@Column
 	private String address;
-    @ManyToOne
-	@JoinColumn(referencedColumnName = "id")
-	private CovidVaccineDetails vaccineId;
+	@Column
+	private String vaccineId;
 	
 	
 	}

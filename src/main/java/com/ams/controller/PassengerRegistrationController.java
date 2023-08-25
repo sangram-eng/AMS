@@ -44,6 +44,7 @@ public class PassengerRegistrationController {
 	                    user.setEmailId(newUser.getEmailId());
 	                    user.setGender(newUser.getGender());
 	                    user.setPassportNo(newUser.getPassportNo());
+	                    user.setVaccineId(newUser.getVaccineId());
 	                    user.setAddress(newUser.getAddress());
 	                    return passengerRegRepo.save(user);
 	                }).orElseThrow(() -> new UserNotFoundException(id));
