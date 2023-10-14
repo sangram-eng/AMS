@@ -71,5 +71,4 @@ public class PassengerRegistrationController {
         return  "User with id "+id+" has been deleted success.";
     }
 
-
 }

@@ -24,7 +24,7 @@ public class BillController {
 	@Autowired
 	BillService billService;
 	
-	@PostMapping("/register")
+	 @PostMapping("/register")
 	 public ResponseEntity<?> addBill(@RequestBody Billinfo bill){
 		Bill billregister = billService.register(bill);
 		return new ResponseEntity<Bill>(billregister, HttpStatus.CREATED);
