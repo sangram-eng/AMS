@@ -6,11 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ams.bean.PassengerRegistrationinfo;
+
 import com.ams.bean.Refundinfo;
-import com.ams.entity.PassengerRegistration;
 import com.ams.entity.Refund;
-import com.ams.repository.PassengerRegistrationRepository;
 import com.ams.repository.RefundRepository;
 
 @Service

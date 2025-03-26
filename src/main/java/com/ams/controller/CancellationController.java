@@ -12,11 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ams.bean.Cancellationinfo;
-import com.ams.bean.PassengerRegistrationinfo;
 import com.ams.entity.Cancellation;
-import com.ams.entity.PassengerRegistration;
 import com.ams.service.CancellationService;
-import com.ams.service.PassengerRegistrationService;
+
 
 @RestController
 @RequestMapping("/cancellation")

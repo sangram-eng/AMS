@@ -7,11 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ams.bean.Cancellationinfo;
-import com.ams.bean.PassengerRegistrationinfo;
 import com.ams.entity.Cancellation;
-import com.ams.entity.PassengerRegistration;
 import com.ams.repository.CancellationRepository;
-import com.ams.repository.PassengerRegistrationRepository;
+
 
 @Service
 public class CancellationService 

@@ -7,17 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ams.bean.BookTicketinfo;
-import com.ams.bean.PassengerRegistrationinfo;
 import com.ams.entity.BookTicket;
-import com.ams.entity.PassengerRegistration;
 import com.ams.repository.BookTicketRepository;
-import com.ams.repository.PassengerRegistrationRepository;
 
 @Service
 public class BookTicketService {
 
-@Autowired
-	
+    @Autowired
     BookTicketRepository BookTicketRepository;
 	
 	public BookTicket register(BookTicketinfo bookticketinfo) {

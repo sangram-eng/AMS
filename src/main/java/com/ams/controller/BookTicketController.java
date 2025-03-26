@@ -12,11 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ams.bean.BookTicketinfo;
-import com.ams.bean.PassengerRegistrationinfo;
 import com.ams.entity.BookTicket;
-import com.ams.entity.PassengerRegistration;
 import com.ams.service.BookTicketService;
-import com.ams.service.PassengerRegistrationService;
 
 @RestController
 @RequestMapping("/bookticket")
