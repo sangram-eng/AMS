@@ -19,7 +19,7 @@ import com.ams.service.PassengerRegistrationService;
 
 
 @RestController
-@RequestMapping("/api/v1/passenger")
+@RequestMapping("/api/v1/user/passenger")
 public class PassengerRegistrationController {
 	
 	@Autowired
