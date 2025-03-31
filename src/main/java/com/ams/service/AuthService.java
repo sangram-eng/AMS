@@ -1,13 +1,14 @@
 package com.ams.service;
 
-import java.util.Optional;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ams.entity.User;
+import com.ams.entity.Role;
 import com.ams.repository.UserRepository;
 import com.ams.security.JwtTokenUtil;
+
+import java.util.Optional;
 
 @Service
 public class AuthService {
@@ -28,6 +29,9 @@ public class AuthService {
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (user.getRole() == null) {
+            user.setRole(Role.USER); // Assign default role if not provided
+        }
         userRepository.save(user);
         return "User registered successfully.";
     }

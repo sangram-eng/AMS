@@ -10,7 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Data
-@NoArgsConstructor  // ✅ Add this to provide a default constructor for Hibernate
+@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -30,7 +30,7 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role role;
+    private Role role = Role.USER; // Default role set to USER
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -38,11 +38,10 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    // ✅ Add constructor for authentication
     public User(String username, String password, Role role) {
         this.username = username;
         this.password = password;
-        this.role = role;
+        this.role = role != null ? role : Role.USER; // Ensure role is set to USER if null
     }
 
     @Override
@@ -51,24 +50,13 @@ public class User implements UserDetails {
     }
 
     @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
+    public boolean isAccountNonExpired() { return true; }
     @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
+    public boolean isAccountNonLocked() { return true; }
     @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
+    public boolean isCredentialsNonExpired() { return true; }
     @Override
-    public boolean isEnabled() {
-        return true;
-    }
+    public boolean isEnabled() { return true; }
 
     @PrePersist
     protected void onCreate() {
