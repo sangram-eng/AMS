@@ -41,7 +41,10 @@ public class PassengerRegistrationController {
 
     // ✅ Register as admin (userId is expected in the body)
     @PostMapping("/admin/register")
-    public PassengerRegistration adminRegister(@RequestBody PassengerRegistrationinfo passengerInfo) {
+    public PassengerRegistration adminRegister(@RequestHeader("Authorization") String authHeader,
+	@RequestBody PassengerRegistrationinfo passengerInfo) {
+		User user = getUserFromToken(authHeader);
+        passengerInfo.setUserId(user.getId());
         return passengerService.adminRegister(passengerInfo);
     }
 
