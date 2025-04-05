@@ -1,16 +1,11 @@
 package com.ams.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ams.entity.User;
 import com.ams.service.AuthService;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -23,6 +18,7 @@ public class AuthController {
         this.authService = authService;
     }
 
+    // Signup Endpoint
     @PostMapping("/signup")
     public ResponseEntity<String> register(@RequestBody User user) {
         try {
@@ -33,16 +29,14 @@ public class AuthController {
         }
     }
 
+    // Login Endpoint
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity<Map<String, String>> login(
+            @RequestParam String username,
+            @RequestParam String password
+    ) {
         try {
-            String token = authService.login(username, password);
-            
-            // Create response map containing username and token
-            Map<String, String> response = new HashMap<>();
-            response.put("username", username);
-            response.put("token", token);
-            
+            Map<String, String> response = authService.login(username, password);
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
             return ResponseEntity.status(401).body(Map.of("error", e.getMessage()));

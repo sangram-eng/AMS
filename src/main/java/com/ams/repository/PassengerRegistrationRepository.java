@@ -1,10 +1,11 @@
 package com.ams.repository;
 
+import com.ams.entity.PassengerRegistration;
+import com.ams.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.ams.entity.PassengerRegistration;
+import java.util.List;
 
 public interface PassengerRegistrationRepository extends JpaRepository<PassengerRegistration, Long> {
-	
-	PassengerRegistration findByUserName(String userName);
+    List<PassengerRegistration> findByUser(User user);
 }

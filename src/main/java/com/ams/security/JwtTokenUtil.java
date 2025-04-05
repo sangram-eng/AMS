@@ -33,7 +33,6 @@ public class JwtTokenUtil {
         this.algorithm = Algorithm.HMAC256(secretKey);
     }
 
-    // Generate JWT Token
     public String generateToken(String username, String role) {
         return JWT.create()
                 .withSubject(username)
@@ -43,17 +42,14 @@ public class JwtTokenUtil {
                 .sign(algorithm);
     }
 
-    // Get username from token
     public String getUsernameFromToken(String token) {
         return decodeToken(token).getSubject();
     }
 
-    // Get a specific claim from token
     public String getClaim(String token, String claim) {
         return decodeToken(token).getClaim(claim).asString();
     }
 
-    // Validate the token
     public boolean validateToken(String token) {
         try {
             return !decodeToken(token).getExpiresAt().before(new Date());
@@ -62,25 +58,22 @@ public class JwtTokenUtil {
         }
     }
 
-    // Decode and verify token
     private DecodedJWT decodeToken(String token) {
         JWTVerifier verifier = JWT.require(algorithm).build();
         return verifier.verify(token);
     }
 
-    // Authenticate user with token
     public void authenticateWithToken(String token) {
         if (validateToken(token)) {
             String username = getUsernameFromToken(token);
             String role = getClaim(token, "role");
-    
+
             User user = new User(username, "", Role.valueOf(role.toUpperCase()));
-    
+
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-    
+
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
     }
-    
 }

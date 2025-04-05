@@ -1,74 +1,85 @@
 package com.ams.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.*;
 
 import com.ams.bean.PassengerRegistrationinfo;
 import com.ams.entity.PassengerRegistration;
-import com.ams.exception.UserNotFoundException;
-import com.ams.repository.PassengerRegistrationRepository;
+import com.ams.entity.User;
+import com.ams.repository.UserRepository;
+import com.ams.security.JwtTokenUtil;
 import com.ams.service.PassengerRegistrationService;
 
-
 @RestController
-@RequestMapping("/api/v1/user/passenger")
+@RequestMapping("/api/v1/passenger")
 public class PassengerRegistrationController {
-	
-	@Autowired
-	PassengerRegistrationService passengerRegistrationService;
-	@Autowired
-	PassengerRegistrationRepository passengerRegRepo;
-	
-	
-	@RequestMapping(value="/register" , method=RequestMethod.POST) 
-	PassengerRegistration register(@RequestBody PassengerRegistrationinfo passengerRegistrationInfo) {
-		return passengerRegistrationService.register(passengerRegistrationInfo);		
-	}
-	 @PutMapping("/edit/{id}")
-	 PassengerRegistration update(@RequestBody PassengerRegistration newUser, @PathVariable Long id) {
-	        return passengerRegRepo.findById(id)
-	                .map(user -> {
-	                    user.setUserName(newUser.getUserName());
-	                    user.setAge(newUser.getAge());
-	                    user.setDob(newUser.getDob());
-	                    user.setPhoneNo(newUser.getPhoneNo());
-	                    user.setNationality(newUser.getNationality());
-	                    user.setEmailId(newUser.getEmailId());
-	                    user.setGender(newUser.getGender());
-	                    user.setPassportNo(newUser.getPassportNo());
-	                    user.setVaccineId(newUser.getVaccineId());
-	                    user.setAddress(newUser.getAddress());
-	                    return passengerRegRepo.save(user);
-	                }).orElseThrow(() -> new UserNotFoundException(id));
-	    }
-	@GetMapping("/getAll")
-	
-	public List<PassengerRegistration> getAll(){
-		
-		return passengerRegRepo.findAll();
-	}
-	 
-    @GetMapping("/getAll/{id}")
-    PassengerRegistration getUserById(@PathVariable Long id) {
-        return passengerRegRepo.findById(id)
-                .orElseThrow(() -> new UserNotFoundException(id));
+
+    private final PassengerRegistrationService passengerService;
+    private final JwtTokenUtil jwtTokenUtil;
+    private final UserRepository userRepository;
+
+    @Autowired
+    public PassengerRegistrationController(PassengerRegistrationService passengerService,
+                                           JwtTokenUtil jwtTokenUtil,
+                                           UserRepository userRepository) {
+        this.passengerService = passengerService;
+        this.jwtTokenUtil = jwtTokenUtil;
+        this.userRepository = userRepository;
     }
 
-    @DeleteMapping("/delete/{id}")
-    String deleteUser(@PathVariable Long id){
-        if(!passengerRegRepo.existsById(id)){
-            throw new UserNotFoundException(id);
+    // ✅ Register passenger by extracting user ID from token
+    @PostMapping("/user/register")
+    public PassengerRegistration userRegister(@RequestHeader("Authorization") String authHeader,
+                                              @RequestBody PassengerRegistrationinfo passengerInfo) {
+        User user = getUserFromToken(authHeader);
+        passengerInfo.setUserId(user.getId()); // Set the user ID in the bean
+        return passengerService.userRegister(passengerInfo);
+    }
+
+    // ✅ Register as admin (userId is expected in the body)
+    @PostMapping("/admin/register")
+    public PassengerRegistration adminRegister(@RequestBody PassengerRegistrationinfo passengerInfo) {
+        return passengerService.adminRegister(passengerInfo);
+    }
+
+    // ✅ Edit passenger details
+    @PutMapping("/user/edit/{id}")
+    public PassengerRegistration updateUser(@PathVariable Long id,
+                                            @RequestBody PassengerRegistration updatedPassenger) {
+        return passengerService.updateDetails(id, updatedPassenger);
+    }
+
+    // ✅ Get all registered passengers (admin only)
+    @GetMapping("/admin/all")
+    public List<PassengerRegistration> getAllUsers() {
+        return passengerService.getAll();
+    }
+
+    // ✅ Get logged-in user's passenger registrations
+    @GetMapping("/user/me")
+    public List<PassengerRegistration> getMyRecords(@RequestHeader("Authorization") String authHeader) {
+        User user = getUserFromToken(authHeader);
+        return passengerService.getByUser(user);
+    }
+
+    // ✅ Delete by passenger ID
+    @DeleteMapping("/user/delete/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        passengerService.deleteById(id);
+        return "User with ID " + id + " has been deleted successfully.";
+    }
+
+    // ✅ Helper method to extract user from token
+    private User getUserFromToken(String authHeader) {
+        String token = authHeader.replace("Bearer ", "").trim();
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found with username: " + username);
         }
-        passengerRegRepo.deleteById(id);
-        return  "User with id "+id+" has been deleted success.";
+        return user;
     }
-
 }

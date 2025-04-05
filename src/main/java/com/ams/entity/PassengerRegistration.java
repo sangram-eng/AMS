@@ -1,45 +1,29 @@
 package com.ams.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
-@Data
 @Entity
+@Data
 @Table(name="passenger")
+public class PassengerRegistration {
 
-public class PassengerRegistration 
- {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	@Column
-	private String userName;
-	@Column
-	private String age;
-	@Column
-	private String dob;
-	@Column
-	private String phoneNo;
-	@Column
-	
-	private String nationality;
-	@Column
-	private String emailId;
-	@Column
-	private String gender;
-	@Column
-	private String passportNo;
-	@Column
-	private String address;
-	@Column
-	private String vaccineId;
-	
-	
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String passengerName;
+    private String age;
+    private String dob;
+    private String phoneNo;
+    private String nationality;
+    private String emailId;
+    private String gender;
+    private String passportNo;
+    private String address;
+    private String vaccineId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+}

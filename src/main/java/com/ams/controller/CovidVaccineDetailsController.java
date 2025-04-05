@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ams.bean.CovidVaccineDetailsinfo;
 import com.ams.entity.CovidVaccineDetails;
-import com.ams.exception.UserNotFoundException;
+import com.ams.exception.UserNotFoundExceptionn;
 import com.ams.repository.CovidVaccineDetailsRepository;
 import com.ams.service.CovidVaccineDetailsService;
 
@@ -42,7 +42,7 @@ public class CovidVaccineDetailsController {
 	                    user.setThirdVaccineDate(newUser.getThirdVaccineDate());
 	                    user.setCertificateNo(newUser.getCertificateNo());
 	                    return CovidVaccineDetailsRepository.save(user);
-	                }).orElseThrow(() -> new UserNotFoundException(id));
+	                }).orElseThrow(() -> new UserNotFoundExceptionn(id));
 	    }
 	@GetMapping("/getAll")
 	
@@ -54,13 +54,13 @@ public class CovidVaccineDetailsController {
     @GetMapping("/getAll/{id}")
     CovidVaccineDetails getUserById(@PathVariable Long id) {
         return CovidVaccineDetailsRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException(id));
+                .orElseThrow(() -> new UserNotFoundExceptionn(id));
     }
 
     @DeleteMapping("/delete/{id}")
     String deleteUser(@PathVariable Long id){
         if(!CovidVaccineDetailsRepository.existsById(id)){
-            throw new UserNotFoundException(id);
+            throw new UserNotFoundExceptionn(id);
         }
         CovidVaccineDetailsRepository.deleteById(id);
         return  "User with id "+id+" has been deleted success.";

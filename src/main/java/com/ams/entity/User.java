@@ -68,4 +68,9 @@ public class User implements UserDetails {
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
+
+    public User orElseThrow(Object object) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
+    }
 }
